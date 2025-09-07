@@ -1,0 +1,30 @@
+services:
+  meet-backend:
+    image: node:20
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp=unconfined
+    working_dir: /usr/app/src
+    volumes:
+      - ./backend:/usr/app/src
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    network_mode: host
+    command: bash -c "yarn install && yarn dev"
+  meet-frontend:
+    image: node:22
+    working_dir: /usr/app/src
+    volumes:
+      - ./frontend:/usr/app/src
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    network_mode: host
+    command: bash -c "yarn install &&  yarn dev"
+
+networks:
+  meet_network:
+    external:
+      name: meet_network
