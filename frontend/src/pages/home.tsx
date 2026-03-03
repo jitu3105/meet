@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Plus, Send } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 const Home = () => {
   const navigate = useNavigate();
+  const [meetingId, setMeetingId] = useState("");
   return (
     <Card className="h-full w-full bg-transparent border-0 shadow-none ">
       <CardContent className="flex flex-col h-full justify-around items-center ">
@@ -23,8 +25,17 @@ const Home = () => {
               <Input
                 placeholder="Enter Meeting Code "
                 className="rounded-full rounded-r-none"
+                value={meetingId}
+                onChange={(e) => {
+                  setMeetingId(e.target.value);
+                }}
               />
-              <Button className="rounded-none">
+              <Button
+                className="rounded-none"
+                onClick={() => {
+                  navigate(`/${meetingId}`);
+                }}
+              >
                 <Send />
               </Button>
             </Card>
